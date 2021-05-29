@@ -1,0 +1,10 @@
+<button onclick="sent()">sent</button>
+<div eta-update="replace" id="websocket">
+    <ul class="people_list">
+        {{#each person}}
+            <li>{{ Firstname }} - {{ Lastname }}</li>
+        {{/each}}
+    </ul>
+
+</div>
+

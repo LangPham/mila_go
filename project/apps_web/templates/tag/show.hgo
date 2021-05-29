@@ -1,0 +1,9 @@
+
+	<div class="container">
+		<h1>Show</h1>
+		<p> ID:	{{ account.ID }} </p>
+		<p>	UserName: {{ account.Username }} </p>
+		<p> Role:	{{ account.Role }} </p>
+
+	</div>
+

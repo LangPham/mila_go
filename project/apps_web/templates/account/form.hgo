@@ -1,0 +1,27 @@
+{{#form_for exchange "/admin/account" }}
+
+
+    {{#if @f}}
+        <div class="error">
+            {{display @f}}
+        </div>
+    {{/if}}
+
+    <div>
+        <label>Username:</label>
+        {{ tag_input @f "UserName" value=@d.UserName }}
+    </div>
+
+    <div>
+        <p><label>Email:</label></p>
+        {{ tag_input @f "Email" type="email" value=@d.Email }}
+    </div>
+
+    <div>
+        <input type="submit" value="Save">
+    </div>
+{{/form_for}}
+<hr>
+
+
+

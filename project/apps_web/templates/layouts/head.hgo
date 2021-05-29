@@ -1,0 +1,7 @@
+<style>
+    .hello{ color: red;}
+    hr{ border: 1px #ccc dashed;}
+</style>
+<link rel="stylesheet" href="/css/front.css">
+<!--<script type="text/javascript" src="/js/front.js"></script>-->
+<script type="text/javascript" src="/js/app.js"></script>

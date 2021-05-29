@@ -1,0 +1,29 @@
+<footer role="contentinfo" class="layout">
+
+    <div class="container">
+        <div class="row">
+            <div class="column column-50">
+                <div class="policy">
+                    <a href="/policy">Chính sách bảo mật</a>
+                </div>
+                <div>
+                    <p>
+                        Powered by <a href="https://github.com/LangPham/thetaproject" target="_blank"
+                                      rel="nofollow noopener"><i class="tti ic-github"></i> Thetaproject </a><br>
+                    </p>
+                </div>
+            </div>
+            <div class="column">
+
+                <a class="link-footer" href="https://www.youtube.com/c/Thetavn" target="_blank"
+                   rel="nofollow noopener"><i class="tti ic-youtube"></i> www.youtube.com/c/Thetavn</a>
+                <a class="link-footer" href="https://www.facebook.com/theta.vn" target="_blank"
+                   rel="nofollow noopener"><i class="tti ic-facebook"></i> www.facebook.com/theta.vn</a>
+                <a class="link-footer" href="mailto:langpham@theta.vn" target="_blank"
+                   rel="nofollow noopener"><i class="tti ic-mail"></i> langpham@theta.vn</a>
+
+            </div>
+        </div>
+    </div>
+
+</footer>

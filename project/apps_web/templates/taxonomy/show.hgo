@@ -1,0 +1,7 @@
+<div class="container">
+	<h1>Show</h1>
+	<p> ID:  {{ taxonomy.ID }} </p>
+	<p> UserName: {{ taxonomy.Title }} </p>
+	<p> Role:  {{ taxonomy.Slug }} </p>
+</div>
+

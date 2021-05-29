@@ -1,0 +1,4 @@
+<div class="container">
+    <h1>New</h1>
+    {{render_with_context "term/form"}}
+</div>

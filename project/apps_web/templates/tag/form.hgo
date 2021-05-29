@@ -1,0 +1,26 @@
+{{#form_for exchange "/admin/tag" }}
+
+    {{#if @f}}
+        <div class="error">
+            {{display @f}}
+        </div>
+    {{/if}}
+
+    <div>
+        <label>Name:</label>
+        {{ tag_input @f "Name" value=@d.Name }}
+    </div>
+
+    <div>
+        <p><label>TagType:</label></p>
+        {{ tag_input @f "TagType" value=@d.TagType }}
+    </div>
+
+    <div>
+        <input type="submit" value="Save">
+    </div>
+{{/form_for}}
+<hr>
+
+
+

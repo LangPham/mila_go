@@ -1,0 +1,18 @@
+<script>
+    let socket = new WebSocket("ws://localhost:8080/ws");
+    console.log("Attempting websocket connnection")
+    socket.onopen = function (event) {
+        socket.send("Here's some text that the server is urgently awaiting!");
+    };
+    sent = function () {
+        let d = new Date();
+        let n = d.getTime();
+        socket.send(n);
+
+    }
+    socket.onmessage = function (event) {
+        console.log(event.data);
+    }
+</script>
+<button onclick="sent()">sent</button>
+Page

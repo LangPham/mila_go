@@ -1,0 +1,25 @@
+{{#form_for changeset "/admin/term" }}
+    {{#if @f.ChangsetError}}
+        <div class="entry">
+            {{@f.ChangsetError}}
+        </div>
+    {{/if}}
+
+    <div>
+        <label>Title:</label>
+        {{ tag_input @f "Title" value=@f.Data.Title }}
+    </div>
+
+    <div>
+        <label>Taxonomy:</label>
+        {{ tag_select @f "TaxonomyID" data=taxonomies value="ID" text="Title" prompt="--Chon--" selected=@f.Data.TaxonomyID}}
+    </div>
+
+    <div>
+        <input type="submit" value="Save">
+    </div>
+{{/form_for}}
+<hr>
+
+
+

@@ -1,0 +1,4 @@
+views:
+  template_extension: "hgo"
+  dir: "apps_web/templates"
+  layout: "layouts/master"

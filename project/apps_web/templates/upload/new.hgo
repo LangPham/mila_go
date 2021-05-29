@@ -1,0 +1,18 @@
+{{#form_for "upload" "/admin/upload" enctype="multipart/form-data" accept="image/*"}}
+    {{#if @f.ChangsetError}}
+        <div class="entry">
+            {{@f.ChangsetError}}
+        </div>
+    {{/if}}
+
+    <label for="myfile">Select a file:</label>
+    <input type="file" id="file-upload" name="file-upload" multiple accept="image/*">
+
+    <div>
+        <input type="submit" value="Save">
+    </div>
+{{/form_for}}
+<hr>
+
+
+

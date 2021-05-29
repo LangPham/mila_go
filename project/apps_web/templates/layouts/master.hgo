@@ -1,0 +1,18 @@
+<!doctype html>
+
+<html>
+<head>
+    <title>{{title}}</title>
+    {{include "layouts/head"}}
+</head>
+<body>
+{{include "layouts/header"}}
+
+
+{{ inner_content }}
+
+
+<hr>
+{{include "layouts/footer"}}
+</body>
+</html>

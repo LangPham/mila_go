@@ -1,0 +1,29 @@
+test
+{{#form_for "changeset" "/admin/article" }}
+    {{#if @f.ChangsetError}}
+        <div class="entry">
+            {{@f.ChangsetError}}
+        </div>
+    {{/if}}
+
+    <div>
+        <label>Title:</label>
+        {{ tag_input @f "Title" value=@f.Data.Title }}
+    </div>
+    <div>
+        <label>Menu:</label>
+        {{ tag_select @f "MenuSlug" data=terms value="Slug" text="Title" prompt="--Chon--" selected=@f.Data.MenuSlug}}
+    </div>
+    <div>
+        <label>Body:</label>
+        {{ tag_textarea @f "Body" value=@f.Data.Body }}
+    </div>
+
+    <div>
+        <input type="submit" value="Save">
+    </div>
+{{/form_for}}
+<hr>
+
+
+

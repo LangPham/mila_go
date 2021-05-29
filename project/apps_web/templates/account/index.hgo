@@ -1,0 +1,29 @@
+
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each accounts}}
+            <tr>
+                <td>{{ ID }}</td>
+                <td>{{ UserName }}</td>
+                <td>{{ Role }}</td>
+                <td>
+                    {{ link "/admin/account/{{id}}" "SHOW" id=ID}}
+                    {{ link "/admin/account/{{id}}/edit" "EDIT" id=ID}}
+                    {{ link "/admin/account/{{id}}" "DELETE" id=ID method="DELETE"}}
+                </td>
+            </tr>
+        {{/each}}
+
+        </tbody>
+    </table>
+</div>
+

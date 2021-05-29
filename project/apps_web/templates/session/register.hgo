@@ -1,0 +1,20 @@
+{{#form_for "account" "/register" }}
+
+    <div>
+        <label>Username</label>
+        {{ tag_input @f "UserName" }}
+    </div>
+
+    <div>
+        <label>Password:</label>
+        {{ tag_input @f "PassPlainText" type="password" }}
+    </div>
+
+    <div>
+        <input type="submit" value="Save">
+    </div>
+{{/form_for}}
+<hr>
+
+
+

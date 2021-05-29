@@ -1,0 +1,28 @@
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Slug</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each terms}}
+            <tr>
+                <td>{{ ID }}</td>
+                <td>{{ Title }}</td>
+                <td>{{ Slug }}</td>
+	              <td>
+		              {{ link "/admin/term/{{id}}" "SHOW" id=ID}}
+		              {{ link "/admin/term/{{id}}/edit" "EDIT" id=ID}}
+		              {{ link "/admin/term/{{id}}" "DELETE" id=ID method="DELETE"}}
+	              </td>
+            </tr>
+        {{/each}}
+
+        </tbody>
+    </table>
+</div>
+

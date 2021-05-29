@@ -1,0 +1,56 @@
+{{#form_for changeset "http://localhost:8080/admin/account" }}
+	<!--    <input name="_method" type="hidden" value="put">-->
+
+	{{#if @f.ChangsetError}}
+		<div class="entry">
+			{{@f.ChangsetError}}
+		</div>
+	{{/if}}
+
+	<div>
+		<label>Username:</label>
+		{{ tag_input @f "UserName" value=@f.Data.UserName }}
+	</div>
+
+	<div>
+		<label>Role:</label>
+		{{ tag_input @f "Role" value=@f.Data.Role }}
+	</div>
+
+	<div>
+		<p><label>Age:</label></p>
+		{{ tag_input @f "Age" type="number" value=@f.Data.Age }}
+	</div>
+	<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+	<label for="vehicle1"> I have a bike</label><br>
+	<input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+	<label for="vehicle2"> I have a car</label><br>
+	<input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+	<label for="vehicle3"> I have a boat</label><br><br>
+	<input type="submit" value="Submit">
+	<div>
+		<input type="submit" value="Save">
+	</div>
+{{/form_for}}
+<hr>
+
+<!--<div>OLD</div>-->
+<!--<form action="http://localhost:8080/admin/account" method="POST" novalidate>-->
+<!--	<div>-->
+<!--		<p><label>Username:</label></p>-->
+<!--		<p><input type="email" name="account[UserName]"></p>-->
+<!--	</div>-->
+<!--	<div>-->
+<!--		<p><label>Role:</label></p>-->
+<!--		<p><input type="text" name="account[Role]"></p>-->
+<!--	</div>-->
+<!--	<div>-->
+<!--		<p><label>Age:</label></p>-->
+<!--		<p><input type="number" name="account[Age]"></p>-->
+<!--	</div>-->
+<!--	<div>-->
+<!--		<input type="submit" value="Save">-->
+<!--	</div>-->
+<!--</form>-->
+
+
