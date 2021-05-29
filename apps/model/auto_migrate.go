@@ -5,5 +5,5 @@ import (
 )
 
 func init() {
-	_ = Repo.AutoMigrate(&Account{} , &Tag{}, &Article{})
+	_ = Repo.AutoMigrate(&Account{}, &Tag{}, &Article{})
 }

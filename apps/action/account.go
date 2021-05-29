@@ -14,11 +14,10 @@ func ListAccount() (accounts []Account) {
 func CreateAccount(c *fiber.Ctx) (exchange Exchange) {
 	account := new(Account)
 	exchange = account.Change(c)
-	//dbug.Dump(exchange, "Create")
+
 	if exchange.Valid {
 		acc := exchange.Data.(Account)
 		Repo.Create(&acc)
-		//dbug.Dump(exchange, "Created")
 		exchange.ResultID = string(acc.ID)
 	}
 	return
@@ -28,6 +27,7 @@ func GetAccount(id int) (result Account) {
 	Repo.First(&result, id)
 	return
 }
+
 //
 //func UpdateAccount(account Account, attrs interface{}) (error bool, result Change) {
 //	var changeset Change

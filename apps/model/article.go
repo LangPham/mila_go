@@ -7,9 +7,8 @@ import (
 type Article struct {
 	gorm.Model
 	MixinThing
-	Body string
+	Body   string
 	Abouts []Tag `gorm:"many2many:tags_articles;"`
-
 }
 
 //func (models Article) Change(attr []byte) (exchange Exchange) {

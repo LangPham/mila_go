@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 )
 
-
 type M map[string]interface{}
 
 func InnerContent(file string, m M) (result string) {

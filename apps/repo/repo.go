@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 )
+
 var Repo *gorm.DB
 
 func init() {
