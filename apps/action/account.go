@@ -4,6 +4,7 @@ import (
 	. "github.com/LangPham/mila_go/apps/model"
 	. "github.com/LangPham/mila_go/apps/repo"
 	"github.com/gofiber/fiber/v2"
+	"strconv"
 )
 
 func ListAccount() (accounts []Account) {
@@ -18,7 +19,7 @@ func CreateAccount(c *fiber.Ctx) (exchange Exchange) {
 	if exchange.Valid {
 		acc := exchange.Data.(Account)
 		Repo.Create(&acc)
-		exchange.ResultID = string(acc.ID)
+		exchange.ResultID = strconv.Itoa(int(acc.ID))
 	}
 	return
 }

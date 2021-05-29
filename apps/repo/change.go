@@ -113,7 +113,7 @@ func Cast(modelIn interface{}, c *fiber.Ctx) (exchange Exchange) {
 	exchange.DataType = dataType
 	exchange.Change = change
 	exchange.Error = mError
-	exchange.Valid = mError == nil
+	exchange.Valid = mError.Empty()
 	return
 }
 
@@ -165,7 +165,7 @@ func (exchange *Exchange) ValidateModel(properties ...string) {
 				//fmt.Println(err)
 			}
 		}
-		exchange.Valid = exchange.Error == nil
+		exchange.Valid = exchange.Error.Empty()
 		return
 	}
 }

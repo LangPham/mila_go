@@ -56,7 +56,7 @@ func init() {
 	})
 
 	raymond.RegisterHelper("tag_input", func(change interface{}, fieldName string, options *raymond.Options) raymond.SafeString {
-
+//Todo: lay data lai khi khong thanh cong
 		value := options.HashStr("value")
 		class := options.HashStr("class")
 		vType := "text"

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/LangPham/mila_go/apps/action"
+	"github.com/LangPham/mila_go/apps/aon"
 	"github.com/LangPham/mila_go/apps/repo"
 	"github.com/LangPham/mila_go/apps_web/views"
 	"github.com/gofiber/fiber/v2"
@@ -27,6 +28,7 @@ func CreateAccount(c *fiber.Ctx) error {
 	//action.CreateAccount(c)
 	switch ex := action.CreateAccount(c); ex.Valid {
 	case true:
+		aon.Dump(ex, "CREATE ACC")
 		return c.Redirect("/admin/account/" + ex.ResultID)
 	default:
 		return views.RenderHTML(c, "account/new", views.M{
