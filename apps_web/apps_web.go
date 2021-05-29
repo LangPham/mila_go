@@ -1,7 +1,7 @@
 package apps_web
 
 import (
-	"github.com/LangPham/mila/apps_web/controllers"
+	"./controllers"
 	"github.com/gofiber/fiber/v2"
 	"log"
 )
