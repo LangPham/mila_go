@@ -1,16 +1,15 @@
 package repo
 
 import (
-	"fmt"
+	"github.com/LangPham/mila_go/apps/aon"
 	"github.com/emirpasic/gods/maps/hashmap"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"github.com/huandu/xstrings"
 	"reflect"
 	"strconv"
 	"strings"
 )
-
-
 
 type Exchange struct {
 	Valid    bool
@@ -65,6 +64,7 @@ func Cast(modelIn interface{}, c *fiber.Ctx) (exchange Exchange) {
 	//aon.Dump(c.FormValue("UserName"), "ATTR")
 	dataType := reflect.TypeOf(modelIn).Name()
 	modelInType := reflect.ValueOf(&modelIn).Elem()
+	aon.Dump(modelInType.Elem().Type(), "modelInType")
 	newModel := reflect.New(modelInType.Elem().Type()).Elem()
 	//aon.Dump(newModel, "NEW MODEL")
 	//aon.Dump(newModel.Type(), "NUM Field")
@@ -96,20 +96,19 @@ func Cast(modelIn interface{}, c *fiber.Ctx) (exchange Exchange) {
 		}
 	}
 
-
 	modelInType.Set(newModel)
 	exchange.Data = modelIn
 
 	value := c.FormValue("_METHOD")
 	userReq := ""
-		switch strings.ToLower(value) {
-		case "post":
-			userReq = "insert"
-		case "put":
-			userReq = "update"
-		default:
-			userReq = "new"
-		}
+	switch strings.ToLower(value) {
+	case "post":
+		userReq = "insert"
+	case "put":
+		userReq = "update"
+	default:
+		userReq = "new"
+	}
 	exchange.Request = userReq
 	exchange.DataType = dataType
 	exchange.Change = change
@@ -127,35 +126,31 @@ func contains(a []string, x string) bool {
 	return false
 }
 
-
 func (exchange *Exchange) ValidateModel(properties ...string) {
-	//aon.Dump(exchange, "VALI")
+
 	validate := validator.New()
 
-	// returns nil or ValidationErrors ( []FieldError )
 	err := validate.Struct(exchange.Data)
-
 	if err != nil {
-
 		// this check is only needed when your code could produce
 		// an invalid value for validation such as interface with nil
 		// value most including myself do not usually have code like this.
-		if _, ok := err.(*validator.InvalidValidationError); ok {
-			fmt.Println(err)
-			return
-		}
+		//if _, ok := err.(*validator.InvalidValidationError); ok {
+		//	fmt.Println(err)
+		//	return
+		//}
 
 		for _, err := range err.(validator.ValidationErrors) {
 
 			switch {
 			case contains([]string{"email"}, err.Tag()):
-				exchange.Error.Put(err.Field(), "not " + err.Tag())
+				exchange.putError(err.Field(), "Please input email!")
 			case contains([]string{"required"}, err.Tag()):
-				exchange.Error.Put(err.Field(), err.Tag())
-			case contains([]string{"eq","gt","gte","lt","lte","ne" }, err.Tag()):
-				exchange.Error.Put(err.Field(),"not "+ err.Tag() + " " + err.Param())
+				exchange.putError(err.Field(), "Can't blank!")
+			case contains([]string{"eq", "gt", "gte", "lt", "lte", "ne"}, err.Tag()):
+				exchange.putError(err.Field(), "not "+err.Tag()+" "+err.Param())
 			default:
-				exchange.Error.Put(err.Field(),"not "+ err.Tag() + " " + err.Param())
+				exchange.putError(err.Field(), "not "+err.Tag()+" "+err.Param())
 				//fmt.Println(err.Namespace())
 				//fmt.Println(err.Field())
 				//fmt.Println(err.StructNamespace())
@@ -175,3 +170,43 @@ func (exchange *Exchange) ValidateModel(properties ...string) {
 	}
 }
 
+func (exchange *Exchange) putError(field string, err string) {
+	key := xstrings.ToSnakeCase(field)
+	val, has := exchange.Error.Get(key)
+	if has {
+		exchange.Error.Put(key, val.(string)+", "+err)
+	} else {
+		exchange.Error.Put(key, err)
+	}
+}
+
+func (exchange *Exchange) PutField(field string, value interface{}) {
+	//exchange.Data
+	rData := reflect.ValueOf(&exchange.Data).Elem()
+	//aon.Dump(rData.Elem(), "ELEM")
+	oldModel := rData.Elem()
+	aon.Dump(oldModel.Field(1))
+	newModel := reflect.New(rData.Elem().Type()).Elem()
+
+	aon.Dump(newModel, "new")
+	//aon.Dump(newModel.NumField(), "so field")
+	for i := 0; i < newModel.NumField(); i++ {
+		if newModel.Type().Field(i).Name == field {
+			// Put data
+			switch newModel.Type().Field(i).Type.String() {
+			case "string":
+				newModel.Field(i).SetString(value.(string))
+			case "int":
+				newModel.Field(i).SetInt(value.(int64))
+			}
+		} else {
+			newModel.Field(i).Set(oldModel.Field(i))
+		}
+
+	}
+	rData.Set(newModel)
+	//exchange.Data =
+	//modelInType.NumField()
+
+	//aon.Dump(reflect.ValueOf(&modelInType), "PUT FIELD")
+}

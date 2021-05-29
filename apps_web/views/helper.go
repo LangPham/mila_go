@@ -79,10 +79,10 @@ func init() {
 		result := ""
 		for k, _ := range errorM {
 			str := errorM[k].(string)
-			result += `<p>` + str + `</p>`
+			result += `<p>Field ` + k + ": " + str + `</p>`
 		}
-		result += `<hr><p>Detail below</p>`
-		return raymond.SafeString(result)
+
+		return raymond.SafeString(result + "<hr>")
 	})
 
 	//raymond.RegisterHelper("tag_select", func(change interface{}, fieldName string, options *raymond.Options) raymond.SafeString {

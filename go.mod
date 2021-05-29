@@ -8,6 +8,7 @@ require (
 	github.com/emirpasic/gods v1.12.0
 	github.com/go-playground/validator/v10 v10.6.1
 	github.com/gofiber/fiber/v2 v2.9.0
+	github.com/huandu/xstrings v1.3.2
 	github.com/spf13/viper v1.7.1
 	github.com/valyala/fasthttp v1.24.0 // indirect
 	gorm.io/driver/postgres v1.1.0

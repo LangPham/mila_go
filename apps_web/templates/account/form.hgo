@@ -13,8 +13,8 @@
     </div>
 
     <div>
-        <p><label>Age:</label></p>
-        {{ tag_input @f "age" type="number" value=@d.Email }}
+        <p><label>Email:</label></p>
+        {{ tag_input @f "email" type="email" value=@d.Email }}
     </div>
 
     <div>

@@ -24,15 +24,15 @@ func EditAccount(c *fiber.Ctx) error {
 }
 
 func CreateAccount(c *fiber.Ctx) error {
-	action.CreateAccount(c)
-	//switch ex := action.CreateAccount(c); ex.Valid {
-	//case true:
-	//	return c.Redirect("/admin/account/" + ex.ResultID)
-	//default:
-	//	return views.RenderHTML(c, "account/new", views.M{
-	//		"exchange": ex,
-	//	})
-	//}
+	//action.CreateAccount(c)
+	switch ex := action.CreateAccount(c); ex.Valid {
+	case true:
+		return c.Redirect("/admin/account/" + ex.ResultID)
+	default:
+		return views.RenderHTML(c, "account/new", views.M{
+			"exchange": ex,
+		})
+	}
 	return nil
 }
 

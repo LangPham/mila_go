@@ -11,14 +11,14 @@ type Account struct {
 	gorm.Model
 	UserName string `cast:"user_name" validate:"required,email"`
 	Role     string `validate:"required"`
-	Email    string `cast:"email" validate:"required,email"`
-	Age int `cast:"age" validate:"gt=10"`
+	//Email    string `cast:"email" validate:"required,email"`
+	//Age int `cast:"age" validate:"gt=10"`
 }
 
 func (models Account) Change(c *fiber.Ctx) (exchange Exchange) {
 
 	exchange = Cast(models, c)
-	exchange.Change.Put("role", "GUEST")
+	exchange.PutField("Role", "GUEST")
 	exchange.ValidateModel()
 	aon.Dump(exchange, "CAST CHANGE")
 	return
