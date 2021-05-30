@@ -29,25 +29,20 @@ func GetAccount(id int) (result Account) {
 	return
 }
 
-//
-//func UpdateAccount(account Account, attrs interface{}) (error bool, result Change) {
-//	var changeset Change
-//
-//	changeset = account.Change(attrs)
-//	account = changeset.Data.(Account)
-//
-//	if changeset.Valid {
-//		Repo.Save(&account)
-//		changeset.IdResult = strconv.Itoa(int(account.ID))
-//
-//		result = changeset
-//		error = true
-//	} else {
-//		result = changeset
-//		error = false
-//	}
-//	return
-//}
+
+func UpdateAccount(c *fiber.Ctx) (exchange Exchange) {
+	id, _ := c.ParamsInt("id")
+	account := GetAccount(id)
+	exchange = account.Change(c)
+
+	if exchange.Valid {
+		acc := exchange.Data.(Account)
+		Repo.Save(&acc)
+		exchange.ResultID = strconv.Itoa(int(acc.ID))
+	}
+	return
+}
+
 //
 //func DeleteAccount(id string) (result Account) {
 //	Repo.Delete(&Account{}, id)

@@ -207,8 +207,8 @@ func FormFor(change interface{}, action string, options *raymond.Options) (resul
 	switch reflect.TypeOf(change).String() {
 	case "repo.Exchange":
 		exchange := change.(repo.Exchange)
-		request = exchange.Request
 		//aon.Dump(exchange, "FORMFOR")
+		request = exchange.Request
 	default:
 		request = options.ValueStr("method")
 	}
@@ -223,9 +223,13 @@ func FormFor(change interface{}, action string, options *raymond.Options) (resul
 	method := ""
 	//switch options.ValueStr("method") {
 	switch request {
-	case "":
+	case "new":
+		method = `<input type="hidden" name="_METHOD" value="POST"/>`
+	case "insert":
 		method = `<input type="hidden" name="_METHOD" value="POST"/>`
 	case "edit":
+		method = `<input type="hidden" name="_METHOD" value="PUT"/>`
+	case "update":
 		method = `<input type="hidden" name="_METHOD" value="PUT"/>`
 	default:
 		method = `<input type="hidden" name="_METHOD" value="` + request + `"/>`

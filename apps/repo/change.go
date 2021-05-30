@@ -40,11 +40,11 @@ func NewExchange(modelIn interface{}) *Exchange {
 		change := hashmap.New()
 		modelInType := reflect.ValueOf(&modelIn).Elem()
 		for i := 0; i < modelInType.Elem().NumField(); i++ {
-				fieldName := modelInType.Elem().Type().Field(i).Tag.Get("cast")
+			fieldName := modelInType.Elem().Type().Field(i).Tag.Get("cast")
 			if fieldName != "" {
-				//aon.Dump(modelInType.Elem().Field(i).Interface(), "VALUE")
 				change.Put(fieldName, modelInType.Elem().Field(i).Interface())
 			}
+			//aon.Dump(modelInType.Elem().Field(i).Interface(), "VALUE")
 		}
 
 		return &Exchange{
