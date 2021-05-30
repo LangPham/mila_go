@@ -56,8 +56,9 @@ func init() {
 	})
 
 	raymond.RegisterHelper("tag_input", func(change interface{}, fieldName string, options *raymond.Options) raymond.SafeString {
-//Todo: lay data lai khi khong thanh cong
+
 		value := options.HashStr("value")
+		//aon.Dump(value, "Value")
 		class := options.HashStr("class")
 		vType := "text"
 		if len(options.HashStr("type")) > 0 {
@@ -202,6 +203,17 @@ func renderWithContext(file string, ctx interface{}) (result string) {
 }
 
 func FormFor(change interface{}, action string, options *raymond.Options) (result string) {
+	request := ""
+	switch reflect.TypeOf(change).String() {
+	case "repo.Exchange":
+		exchange := change.(repo.Exchange)
+		request = exchange.Request
+		//aon.Dump(exchange, "FORMFOR")
+	default:
+		request = options.ValueStr("method")
+	}
+
+	//aon.Dump(change, "FORMFOR")
 	enctype := options.HashStr("enctype")
 	enctypeAtt := ""
 	if len(enctype) > 0 {
@@ -209,11 +221,14 @@ func FormFor(change interface{}, action string, options *raymond.Options) (resul
 	}
 
 	method := ""
-	switch options.ValueStr("method") {
+	//switch options.ValueStr("method") {
+	switch request {
 	case "":
 		method = `<input type="hidden" name="_METHOD" value="POST"/>`
+	case "edit":
+		method = `<input type="hidden" name="_METHOD" value="PUT"/>`
 	default:
-		method = `<input type="hidden" name="_METHOD" value="` + options.ValueStr("method") + `"/>`
+		method = `<input type="hidden" name="_METHOD" value="` + request + `"/>`
 	}
 
 	id := ""

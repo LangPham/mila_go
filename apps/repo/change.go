@@ -22,9 +22,10 @@ type Exchange struct {
 	Validate *validator.Validate
 }
 
-func NewExchange(dataIn interface{}) *Exchange {
-	switch v := dataIn.(type) {
+func NewExchange(modelIn interface{}) *Exchange {
+	switch v := modelIn.(type) {
 	case string:
+		//aon.Dump(modelIn, "NEW EXCHANGE string")
 		return &Exchange{
 			Valid:    false,
 			Error:    hashmap.New(),
@@ -34,13 +35,23 @@ func NewExchange(dataIn interface{}) *Exchange {
 			Validate: validator.New(),
 		}
 	default:
-		dataType := reflect.TypeOf(dataIn).Name()
+		dataType := reflect.TypeOf(modelIn).Name()
+		//aon.Dump(modelIn, "Edit EXCHANGE data")
+		change := hashmap.New()
+		modelInType := reflect.ValueOf(&modelIn).Elem()
+		for i := 0; i < modelInType.Elem().NumField(); i++ {
+				fieldName := modelInType.Elem().Type().Field(i).Tag.Get("cast")
+			if fieldName != "" {
+				//aon.Dump(modelInType.Elem().Field(i).Interface(), "VALUE")
+				change.Put(fieldName, modelInType.Elem().Field(i).Interface())
+			}
+		}
 
 		return &Exchange{
 			Valid:    false,
 			Error:    hashmap.New(),
-			Change:   hashmap.New(),
-			Data:     dataIn,
+			Change:   change,
+			Data:     modelIn,
 			Request:  "edit",
 			DataType: dataType,
 			Validate: validator.New(),
@@ -64,7 +75,7 @@ func Cast(modelIn interface{}, c *fiber.Ctx) (exchange Exchange) {
 	//aon.Dump(c.FormValue("UserName"), "ATTR")
 	dataType := reflect.TypeOf(modelIn).Name()
 	modelInType := reflect.ValueOf(&modelIn).Elem()
-	aon.Dump(modelInType.Elem().Type(), "modelInType")
+	//aon.Dump(modelInType.Elem().Type(), "modelInType")
 	newModel := reflect.New(modelInType.Elem().Type()).Elem()
 	//aon.Dump(newModel, "NEW MODEL")
 	//aon.Dump(newModel.Type(), "NUM Field")
