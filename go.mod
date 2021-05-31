@@ -1,4 +1,4 @@
-module github.com/LangPham/mila_go
+module github.com/LangPham/mila
 
 go 1.16
 

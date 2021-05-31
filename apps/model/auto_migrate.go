@@ -1,7 +1,7 @@
 package model
 
 import (
-	. "github.com/LangPham/mila_go/apps/repo"
+	. "github.com/LangPham/mila/apps/repo"
 )
 
 func init() {

@@ -1,6 +1,8 @@
 package model
 
 import (
+	. "github.com/LangPham/mila/apps/repo"
+	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
 
@@ -13,9 +15,8 @@ type Tag struct {
 	Child     []Tag `gorm:"foreignkey:ParentID"`
 }
 
-//
-//func (models Tag) Change(attr []byte) (exchange Exchange) {
-//	exchange = Cast(models, attr, "Name", "Url", "Image", "Description", "TagType")
-//	exchange.ValidateRequired("Name", "Url")
-//	return
-//}
+func (models Tag) Change(c *fiber.Ctx) (exchange Exchange) {
+	exchange = Cast(models, c)
+	exchange.ValidateModel()
+	return
+}

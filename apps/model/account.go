@@ -1,7 +1,7 @@
 package model
 
 import (
-	. "github.com/LangPham/mila_go/apps/repo"
+	. "github.com/LangPham/mila/apps/repo"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
@@ -9,7 +9,7 @@ import (
 type Account struct {
 	gorm.Model
 	UserName string `cast:"user_name" validate:"required"`
-	Email string `cast:"email" validate:"required,email"`
+	Email    string `cast:"email" validate:"required,email"`
 	Role     string `validate:"required"`
 	//Email    string `cast:"email" validate:"required,email"`
 	//Age int `cast:"age" validate:"gt=10"`

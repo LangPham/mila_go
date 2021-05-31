@@ -1,8 +1,8 @@
 package apps_web
 
 import (
-	"github.com/LangPham/mila_go/apps/aon"
-	"github.com/LangPham/mila_go/apps_web/controllers"
+	"github.com/LangPham/mila/apps/aon"
+	"github.com/LangPham/mila/apps_web/controllers"
 	"github.com/gofiber/fiber/v2"
 	"log"
 )

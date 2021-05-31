@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/LangPham/mila_go/apps/repo"
-	"github.com/LangPham/mila_go/apps_web/views"
+	"github.com/LangPham/mila/apps/repo"
+	"github.com/LangPham/mila/apps_web/views"
 	"github.com/gofiber/fiber/v2"
 )
 

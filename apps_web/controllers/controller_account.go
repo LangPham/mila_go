@@ -1,9 +1,10 @@
 package controllers
 
 import (
-	"github.com/LangPham/mila_go/apps/action"
-	"github.com/LangPham/mila_go/apps/repo"
-	"github.com/LangPham/mila_go/apps_web/views"
+	"github.com/LangPham/mila/apps/action"
+	"github.com/LangPham/mila/apps/aon"
+	"github.com/LangPham/mila/apps/repo"
+	"github.com/LangPham/mila/apps_web/views"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -19,7 +20,7 @@ func EditAccount(c *fiber.Ctx) error {
 	account := action.GetAccount(id)
 
 	exchange := repo.NewExchange(account)
-
+	aon.Dump(exchange, "Ex")
 	return views.RenderHTML(c, "account/new", views.M{
 		"exchange": exchange,
 		"id": id,

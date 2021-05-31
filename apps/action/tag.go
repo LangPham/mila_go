@@ -1,8 +1,8 @@
 package action
 
 import (
-	. "github.com/LangPham/mila_go/apps/model"
-	. "github.com/LangPham/mila_go/apps/repo"
+	. "github.com/LangPham/mila/apps/model"
+	. "github.com/LangPham/mila/apps/repo"
 )
 
 func ListTag() (tags []Tag) {

@@ -1,7 +1,7 @@
 package views
 
 import (
-	"github.com/LangPham/mila_go/apps/repo"
+	"github.com/LangPham/mila/apps/repo"
 	"github.com/aymerick/raymond"
 	"path/filepath"
 	"reflect"
