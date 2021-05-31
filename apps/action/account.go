@@ -24,17 +24,16 @@ func CreateAccount(c *fiber.Ctx) (exchange Exchange) {
 	return
 }
 
-func GetAccount(id int) (result Account) {
+func GetAccount(id interface{}) (result Account) {
 	Repo.First(&result, id)
 	return
 }
 
 
 func UpdateAccount(c *fiber.Ctx) (exchange Exchange) {
-	id, _ := c.ParamsInt("id")
+	id := c.Params("id")
 	account := GetAccount(id)
 	exchange = account.Change(c)
-
 	if exchange.Valid {
 		acc := exchange.Data.(Account)
 		Repo.Save(&acc)
@@ -43,8 +42,7 @@ func UpdateAccount(c *fiber.Ctx) (exchange Exchange) {
 	return
 }
 
-//
-//func DeleteAccount(id string) (result Account) {
-//	Repo.Delete(&Account{}, id)
-//	return
-//}
+func DeleteAccount(id interface{}) (result Account) {
+	Repo.Delete(&Account{}, id)
+	return
+}

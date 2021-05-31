@@ -1,6 +1,7 @@
 package apps_web
 
 import (
+	"github.com/LangPham/mila_go/apps/aon"
 	"github.com/LangPham/mila_go/apps_web/controllers"
 	"github.com/gofiber/fiber/v2"
 	"log"
@@ -11,6 +12,15 @@ func AppsWeb() {
 	app.Static("/", "./public/static")
 	//app.Get("/", controllers.PageIndex)
 	app.Use(func(c *fiber.Ctx) error {
+
+		switch c.Method() {
+		case "POST":
+			if c.FormValue("_METHOD") != "" {
+				c.Method(c.FormValue("_METHOD"))
+			}
+		default:
+			aon.Dump(c.Method() , "MID")
+		}
 		// Set some security headers:
 		//c.Set("X-XSS-Protection", "1; mode=block")
 		//c.Set("X-Content-Type-Options", "nosniff")

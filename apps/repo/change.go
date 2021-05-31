@@ -1,7 +1,6 @@
 package repo
 
 import (
-	"github.com/LangPham/mila_go/apps/aon"
 	"github.com/emirpasic/gods/maps/hashmap"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -59,26 +58,39 @@ func NewExchange(modelIn interface{}) *Exchange {
 	}
 }
 
-func attToTreemap(c *fiber.Ctx, properties []string) *hashmap.Map {
-	m := hashmap.New()
-	for _, value := range properties {
-		m.Put(value, c.FormValue(value))
+
+// For cast
+func newReflectValue(oldValue reflect.Value, req string) (copy reflect.Value) {
+	oldModel := oldValue.Elem()
+	newModel := reflect.New(oldValue.Elem().Type()).Elem()
+	if req == "update" {
+		for i := 0; i < newModel.NumField(); i++ {
+			newModel.Field(i).Set(oldModel.Field(i))
+		}
 	}
-	return m
+	return newModel
 }
 
 func Cast(modelIn interface{}, c *fiber.Ctx) (exchange Exchange) {
-	//aon.Dump(modelIn, "MODELIN")
-	//aon.Dump(c, "ATTR")
+
+	value := c.FormValue("_METHOD")
+	userReq := ""
+	switch strings.ToLower(value) {
+	case "post":
+		userReq = "insert"
+	case "put":
+		userReq = "update"
+	default:
+		userReq = "new"
+	}
+
 	change := hashmap.New()
 	mError := hashmap.New()
-	//aon.Dump(c.FormValue("UserName"), "ATTR")
 	dataType := reflect.TypeOf(modelIn).Name()
 	modelInType := reflect.ValueOf(&modelIn).Elem()
-	//aon.Dump(modelInType.Elem().Type(), "modelInType")
-	newModel := reflect.New(modelInType.Elem().Type()).Elem()
-	//aon.Dump(newModel, "NEW MODEL")
-	//aon.Dump(newModel.Type(), "NUM Field")
+
+	newModel := newReflectValue(modelInType, userReq)
+
 	for i := 0; i < newModel.NumField(); i++ {
 		//aon.Dump(newModel.Type().Field(i).Name, "NAME")
 		//aon.Dump(newModel.Type().Field(i).Tag, "Tag")
@@ -110,16 +122,6 @@ func Cast(modelIn interface{}, c *fiber.Ctx) (exchange Exchange) {
 	modelInType.Set(newModel)
 	exchange.Data = modelIn
 
-	value := c.FormValue("_METHOD")
-	userReq := ""
-	switch strings.ToLower(value) {
-	case "post":
-		userReq = "insert"
-	case "put":
-		userReq = "update"
-	default:
-		userReq = "new"
-	}
 	exchange.Request = userReq
 	exchange.DataType = dataType
 	exchange.Change = change
@@ -128,6 +130,7 @@ func Cast(modelIn interface{}, c *fiber.Ctx) (exchange Exchange) {
 	return
 }
 
+// for validate
 func contains(a []string, x string) bool {
 	for _, n := range a {
 		if x == n {
@@ -135,6 +138,17 @@ func contains(a []string, x string) bool {
 		}
 	}
 	return false
+}
+
+// For validate
+func (exchange *Exchange) putError(field string, err string) {
+	key := xstrings.ToSnakeCase(field)
+	val, has := exchange.Error.Get(key)
+	if has {
+		exchange.Error.Put(key, val.(string)+", "+err)
+	} else {
+		exchange.Error.Put(key, err)
+	}
 }
 
 func (exchange *Exchange) ValidateModel(properties ...string) {
@@ -181,26 +195,10 @@ func (exchange *Exchange) ValidateModel(properties ...string) {
 	}
 }
 
-func (exchange *Exchange) putError(field string, err string) {
-	key := xstrings.ToSnakeCase(field)
-	val, has := exchange.Error.Get(key)
-	if has {
-		exchange.Error.Put(key, val.(string)+", "+err)
-	} else {
-		exchange.Error.Put(key, err)
-	}
-}
-
 func (exchange *Exchange) PutField(field string, value interface{}) {
-	//exchange.Data
 	rData := reflect.ValueOf(&exchange.Data).Elem()
-	//aon.Dump(rData.Elem(), "ELEM")
 	oldModel := rData.Elem()
-	aon.Dump(oldModel.Field(1))
 	newModel := reflect.New(rData.Elem().Type()).Elem()
-
-	aon.Dump(newModel, "new")
-	//aon.Dump(newModel.NumField(), "so field")
 	for i := 0; i < newModel.NumField(); i++ {
 		if newModel.Type().Field(i).Name == field {
 			// Put data
@@ -213,11 +211,6 @@ func (exchange *Exchange) PutField(field string, value interface{}) {
 		} else {
 			newModel.Field(i).Set(oldModel.Field(i))
 		}
-
 	}
 	rData.Set(newModel)
-	//exchange.Data =
-	//modelInType.NumField()
-
-	//aon.Dump(reflect.ValueOf(&modelInType), "PUT FIELD")
 }
