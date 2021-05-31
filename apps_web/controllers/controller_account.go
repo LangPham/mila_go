@@ -3,13 +3,14 @@ package controllers
 import (
 	"github.com/LangPham/mila/apps/action"
 	"github.com/LangPham/mila/apps/aon"
-	"github.com/LangPham/mila/apps/repo"
+	. "github.com/LangPham/mila_cast"
+	//"github.com/LangPham/mila/apps/repo"
 	"github.com/LangPham/mila/apps_web/views"
 	"github.com/gofiber/fiber/v2"
 )
 
 func NewAccount(c *fiber.Ctx) error {
-	exchange := repo.NewExchange("account")
+	exchange := NewExchange("account")
 	return views.RenderHTML(c, "account/new", views.M{
 		"exchange": exchange,
 	})
@@ -18,9 +19,7 @@ func NewAccount(c *fiber.Ctx) error {
 func EditAccount(c *fiber.Ctx) error {
 	id := c.Params("id")
 	account := action.GetAccount(id)
-
-	exchange := repo.NewExchange(account)
-	aon.Dump(exchange, "Ex")
+	exchange := NewExchange(account)
 	return views.RenderHTML(c, "account/new", views.M{
 		"exchange": exchange,
 		"id": id,
@@ -50,8 +49,10 @@ func ShowAccount(c *fiber.Ctx) error {
 func UpdateAccount(c *fiber.Ctx) error {
 	switch ex := action.UpdateAccount(c); ex.Valid {
 	case true:
+		aon.Dump(ex, "UPDATE TRUE")
 		return c.Redirect("/admin/account/" + ex.ResultID)
 	default:
+		aon.Dump(ex, "UPDATE FALSE")
 		return views.RenderHTML(c, "account/new", views.M{
 			"exchange": ex,
 		})

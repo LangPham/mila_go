@@ -41,6 +41,10 @@ func AppsWeb() {
 	account.Get("/:id", controllers.ShowAccount)
 	account.Post("/", controllers.CreateAccount)
 	account.Put("/:id", controllers.UpdateAccount)
+
+	tag:= admin.Group("tag")
+	tag.Get("/new", controllers.NewTag)
+	tag.Post("/", controllers.CreateTag)
 	//admin.Get("/user/:id", controllers.ShowUser)
 	// tag
 	//admin.Get("/account/new", controllers.NewAccount)

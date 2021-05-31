@@ -8,12 +8,17 @@
 
     <div>
         <label>Name:</label>
-        {{ tag_input @f "Name" value=@d.Name }}
+        {{ tag_input @f "name" value=@d.name }}
     </div>
 
     <div>
         <p><label>TagType:</label></p>
-        {{ tag_input @f "TagType" value=@d.TagType }}
+        {{ tag_input @f "tag_type" value=@d.tag_type }}
+    </div>
+
+    <div>
+        <p><label>TagInt:</label></p>
+        {{ tag_input @f "tag_int" value=@d.tag_int }}
     </div>
 
     <div>

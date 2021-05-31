@@ -1,16 +1,30 @@
 package controllers
 
 import (
-	"github.com/LangPham/mila/apps/repo"
+	"github.com/LangPham/mila/apps/action"
 	"github.com/LangPham/mila/apps_web/views"
+	. "github.com/LangPham/mila_cast"
 	"github.com/gofiber/fiber/v2"
 )
 
 func NewTag(c *fiber.Ctx) error {
-	commute := repo.NewExchange("account")
-	return views.RenderHTML(c, "account/new", views.M{
-		"commute": commute,
+	exchange := NewExchange("tag")
+	return views.RenderHTML(c, "tag/new", views.M{
+		"exchange": exchange,
 	})
+}
+
+
+func CreateTag(c *fiber.Ctx) error {
+	switch ex := action.CreateTag(c); ex.Valid {
+	case true:
+		return c.Redirect("/admin/tag/" + ex.ResultID)
+	default:
+		return views.RenderHTML(c, "tag/new", views.M{
+			"exchange": ex,
+		})
+	}
+	return nil
 }
 
 //func CreateTag(c *fiber.Ctx) error {

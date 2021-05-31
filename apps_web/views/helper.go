@@ -1,7 +1,8 @@
 package views
 
 import (
-	"github.com/LangPham/mila/apps/repo"
+	//"github.com/LangPham/mila/apps/repo"
+	. "github.com/LangPham/mila_cast"
 	"github.com/aymerick/raymond"
 	"path/filepath"
 	"reflect"
@@ -205,11 +206,12 @@ func renderWithContext(file string, ctx interface{}) (result string) {
 func FormFor(change interface{}, action string, options *raymond.Options) (result string) {
 	request := ""
 	switch reflect.TypeOf(change).String() {
-	case "repo.Exchange":
-		exchange := change.(repo.Exchange)
+	case "mila_cast.Exchange":
+		exchange := change.(Exchange)
 		//aon.Dump(exchange, "FORMFOR")
 		request = exchange.Request
 	default:
+
 		request = options.ValueStr("method")
 	}
 
@@ -248,7 +250,7 @@ func FormFor(change interface{}, action string, options *raymond.Options) (resul
 
 	//dbug.Dump(change, "FORMFOR")
 	if change != nil {
-		exchange := change.(repo.Exchange)
+		exchange := change.(Exchange)
 		key := exchange.Change.Keys()
 		data := make(map[string]interface{})
 
