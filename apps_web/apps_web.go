@@ -1,7 +1,6 @@
 package apps_web
 
 import (
-	"github.com/LangPham/mila/apps/aon"
 	"github.com/LangPham/mila/apps_web/controllers"
 	"github.com/gofiber/fiber/v2"
 	"log"
@@ -19,7 +18,7 @@ func AppsWeb() {
 				c.Method(c.FormValue("_METHOD"))
 			}
 		default:
-			aon.Dump(c.Method() , "MID")
+
 		}
 		// Set some security headers:
 		//c.Set("X-XSS-Protection", "1; mode=block")

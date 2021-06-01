@@ -8,9 +8,11 @@ import (
 
 type Account struct {
 	gorm.Model
-	UserName string `cast:"user_name" validate:"required"`
-	Email    string `cast:"email" validate:"required,email"`
-	Role     string `validate:"required"`
+	UserName      string `cast:"user_name" validate:"required"`
+	Password      string
+	PasswordPlain string `cast:"password_plain" gorm:"-"`
+	Role          string `validate:"required"`
+	Credentials   []Credential
 }
 
 func (models Account) Change(c *fiber.Ctx) (exchange Exchange) {
