@@ -1,6 +1,4 @@
 {{#form_for exchange "/admin/account" }}
-
-
     {{#if @f}}
         <div class="error">
             {{display @f}}
