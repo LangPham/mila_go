@@ -16,10 +16,8 @@ type Account struct {
 }
 
 func (models Account) Change(c *fiber.Ctx) (exchange Exchange) {
-
 	exchange = Cast(models, c)
 	exchange.PutField("Role", "GUEST")
 	exchange.ValidateModel()
-
 	return
 }

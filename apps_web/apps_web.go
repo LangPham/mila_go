@@ -31,6 +31,7 @@ func AppsWeb() {
 		// Go to next middleware:
 		return c.Next()
 	})
+	app.Get("login", controllers.Login)
 
 	admin := app.Group("/admin")
 	// account
