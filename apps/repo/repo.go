@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/LangPham/mila/config"
+	"github.com/LangPham/mila_go/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

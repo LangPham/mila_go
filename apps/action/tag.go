@@ -1,9 +1,9 @@
 package action
 
 import (
-	"github.com/LangPham/mila/apps/aon"
-	. "github.com/LangPham/mila/apps/model"
-	. "github.com/LangPham/mila/apps/repo"
+
+	. "github.com/LangPham/mila_go/apps/model"
+	. "github.com/LangPham/mila_go/apps/repo"
 	. "github.com/LangPham/mila_cast"
 	"github.com/gofiber/fiber/v2"
 	"strconv"
@@ -17,7 +17,7 @@ func ListTag() (tags []Tag) {
 func CreateTag(c *fiber.Ctx) (exchange Exchange) {
 	tag := new(Tag)
 	exchange = tag.Change(c)
-	aon.Dump(exchange)
+	//aon.Dump(exchange)
 	exchange.Valid = false
 	if exchange.Valid {
 		ta := exchange.Data.(Tag)

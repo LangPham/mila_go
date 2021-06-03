@@ -10,3 +10,6 @@ repo:
   port: "5432"
   sslmode: "disable"
   TimeZone: "Asia/Ho_Chi_Minh"
+cookie:
+  name: "_mila"
+secret_key: "0?IcX*j4C:w7/1,DLV-q7oTP*m80<vJ/"

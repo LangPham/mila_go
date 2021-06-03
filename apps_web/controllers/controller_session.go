@@ -2,8 +2,9 @@ package controllers
 
 import (
 	. "github.com/LangPham/mila_cast"
+	"github.com/LangPham/mila_go/util"
 	//"github.com/LangPham/mila/apps/repo"
-	"github.com/LangPham/mila/apps_web/views"
+	"github.com/LangPham/mila_go/apps_web/views"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -12,6 +13,15 @@ func Login(c *fiber.Ctx) error {
 	return views.RenderHTML(c, "session/login", views.M{
 		"exchange": exchange,
 	})
+}
+func Test(c *fiber.Ctx) error {
+	//return c.SendString("root")
+	util.Dump(c.App().Stack(), "STACK")
+	return c.Next()
+}
+
+func Test1(c *fiber.Ctx) error {
+	return c.SendString("root1")
 }
 //
 //func EditAccount(c *fiber.Ctx) error {
