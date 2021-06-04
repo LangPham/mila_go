@@ -1,18 +1,18 @@
 {{#form_for "session" "/login" }}
 
-    <div>
-        <label>Username</label>
-        {{ tag_input @f "UserName" }}
-    </div>
+	<div>
+		<label>Username</label>
+		{{ tag_input @f "UserName" }}
+	</div>
 
-    <div>
-        <label>Password:</label>
-        {{ tag_input @f "Password" }}
-    </div>
+	<div>
+		<label>Password:</label>
+		{{ tag_input @f "Password" }}
+	</div>
 
-    <div>
-        <input type="submit" value="Save">
-    </div>
+	<div>
+		<input type="submit" value="Save">
+	</div>
 {{/form_for}}
 <hr>
 

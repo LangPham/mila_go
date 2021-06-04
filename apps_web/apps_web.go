@@ -46,7 +46,6 @@ func AppsWeb() {
 			strGuard := util.MilaDecrypt(cookieValue)
 			gua = guard.ToGuard(strGuard)
 		} else {
-
 			cookie := new(fiber.Cookie)
 			cookie.HTTPOnly = true
 			cookie.Name = cookieName
@@ -57,17 +56,14 @@ func AppsWeb() {
 		}
 		//util.Dump(gua, "GUA EXIST")
 		enforce, err := Cas.Enforce(gua.Role, c.Path(), c.Method())
-		util.Dump(enforce, "enforce")
+		//util.Dump(enforce, "enforce")
 		util.Dump(err, "err")
 		//util.Dump(cookieValue, "cookieName")
 		//Create cookie session
 		//cookie := new(fiber.Cookie)
 		//cookie.HTTPOnly = true
-		//
 		//cookie.Name = "name"
 		//cookie.Value = "doe"
-
-
 		// Set cookie
 		//c.Cookie(cookie)
 

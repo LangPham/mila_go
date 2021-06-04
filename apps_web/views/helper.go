@@ -204,18 +204,34 @@ func renderWithContext(file string, ctx interface{}) (result string) {
 }
 
 func FormFor(change interface{}, action string, options *raymond.Options) (result string) {
+	frame := options.NewDataFrame()
 	request := ""
 	switch reflect.TypeOf(change).String() {
 	case "mila_cast.Exchange":
 		exchange := change.(Exchange)
 		//aon.Dump(exchange, "FORMFOR")
 		request = exchange.Request
-	default:
+		key := exchange.Change.Keys()
+		data := make(map[string]interface{})
 
+		for i := 0; i < len(key); i++ {
+			val, _ := exchange.Change.Get(key[i].(string)) // b, true
+			data[key[i].(string)] = val
+		}
+		frame.Set("d", data)
+
+		keyE := exchange.Error.Keys()
+		//dbug.Dump(keyE, "KEYE")
+		exError := make(map[string]interface{})
+		for i := 0; i < len(keyE); i++ {
+			val, _ := exchange.Error.Get(keyE[i].(string)) // b, true
+			exError[keyE[i].(string)] = val
+		}
+		frame.Set("f", exError)
+	default:
 		request = options.ValueStr("method")
 	}
 
-	//aon.Dump(change, "FORMFOR")
 	enctype := options.HashStr("enctype")
 	enctypeAtt := ""
 	if len(enctype) > 0 {
@@ -223,7 +239,6 @@ func FormFor(change interface{}, action string, options *raymond.Options) (resul
 	}
 
 	method := ""
-	//switch options.ValueStr("method") {
 	switch request {
 	case "new":
 		method = `<input type="hidden" name="_METHOD" value="POST"/>`
@@ -246,30 +261,6 @@ func FormFor(change interface{}, action string, options *raymond.Options) (resul
 	}
 
 	resultBefore := `<form action="` + action + id + `" method="POST" ` + enctypeAtt + `>`
-	frame := options.NewDataFrame()
-
-	//dbug.Dump(change, "FORMFOR")
-	if change != nil {
-		exchange := change.(Exchange)
-		key := exchange.Change.Keys()
-		data := make(map[string]interface{})
-
-		for i := 0; i < len(key); i++ {
-			val, _ := exchange.Change.Get(key[i].(string)) // b, true
-			data[key[i].(string)] = val
-		}
-		frame.Set("d", data)
-
-		keyE := exchange.Error.Keys()
-		//dbug.Dump(keyE, "KEYE")
-		exError := make(map[string]interface{})
-		for i := 0; i < len(keyE); i++ {
-			val, _ := exchange.Error.Get(keyE[i].(string)) // b, true
-			exError[keyE[i].(string)] = val
-		}
-		frame.Set("f", exError)
-	}
-
 	resultAfter := `</form>`
 	result = resultBefore + method + options.FnData(frame) + resultAfter
 

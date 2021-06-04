@@ -1,4 +1,4 @@
-p, admin, /*, *
-p, anonymous, /login, *
-p, member, /logout, *
+p, GUEST, /, *
+p, GUEST, /login, *
+p, USER, /logout, *
 p, GUEST, /admin/account/new, *
