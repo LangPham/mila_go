@@ -7,14 +7,18 @@ import (
 	"github.com/LangPham/mila_go/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-)
 
+	"database/sql"
+    _ "github.com/lib/pq"
+    "github.com/golang-migrate/migrate/v4"
+    pg "github.com/golang-migrate/migrate/v4/database/postgres"
+    _ "github.com/golang-migrate/migrate/v4/source/file"
+)
 
 var Repo *gorm.DB
 
-
-
 func init() {
+	theta_migrate()
 	//a := config.GetJoin("repo")
 	//aon.Dump(a)
 	//dsn := "host=127.0.0.1 user=postgres password=postgres dbname=mila port=5432 sslmode=disable TimeZone=Asia/Ho_Chi_Minh"
@@ -26,9 +30,7 @@ func init() {
 	}
 	Repo = db
 	//a, _ := gormadapter.NewAdapterByDBWithCustomTable(db, &CasbinRule{})
-	//aon.Dump(a, "CASBIN")
-//	m, err := model.NewModelFromString(`
-//[request_definition]
+	//aon.Dump(a, "CASBIN")// util.Dump(dsn)
 //r = sub, obj, act
 //
 //[policy_definition]
@@ -50,4 +52,16 @@ func init() {
 	//e.LoadPolicy()
 	//CasEnf = e
 	//aon.Dump(e, "CASBIN")
+}
+
+func theta_migrate() { 
+    dri, conf := config.GetRepo("repo")
+    // util.Dump(dsn)
+
+	db, _ := sql.Open(dri, conf)
+    driver, _ := pg.WithInstance(db, &pg.Config{})
+    m, _ := migrate.NewWithDatabaseInstance(
+        "file://./apps/db/migrations",
+        "postgres", driver)
+    m.Up()
 }

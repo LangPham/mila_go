@@ -2,3 +2,4 @@ p, GUEST, /, *
 p, GUEST, /login, *
 p, USER, /logout, *
 p, GUEST, /admin/account/new, *
+p, GUEST, /admin/account, *

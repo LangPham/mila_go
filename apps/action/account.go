@@ -1,11 +1,14 @@
 package action
 
 import (
+	"strconv"
+
+	. "github.com/LangPham/mila_cast"
 	. "github.com/LangPham/mila_go/apps/model"
 	. "github.com/LangPham/mila_go/apps/repo"
-	. "github.com/LangPham/mila_cast"
+	"github.com/LangPham/mila_go/util"
+	// . "github.com/LangPham/mila_go/util"
 	"github.com/gofiber/fiber/v2"
-	"strconv"
 )
 
 func ListAccount() (accounts []Account) {
@@ -27,6 +30,16 @@ func CreateAccount(c *fiber.Ctx) (exchange Exchange) {
 
 func GetAccount(id interface{}) (result Account) {
 	Repo.First(&result, id)
+	return
+}
+
+func CheckAccount(c *fiber.Ctx) (result Account) {
+	// value := c.Body()
+	value := c.FormValue("UserName")
+	util.Dump(value)
+	// util.Dump(value)
+	// Repo.First(&result, 1)
+	Repo.Where("user_name = ?", value).Find(&result)
 	return
 }
 

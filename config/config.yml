@@ -6,10 +6,11 @@ repo:
   host: "127.0.0.1"
   user: "postgres"
   password: "postgres"
-  dbname: "mila"
+  dbname: "mila_v1"
   port: "5432"
   sslmode: "disable"
   TimeZone: "Asia/Ho_Chi_Minh"
+  # driver: "postgres"
 cookie:
   name: "_mila"
 secret_key: "0?IcX*j4C:w7/1,DLV-q7oTP*m80<vJ/"

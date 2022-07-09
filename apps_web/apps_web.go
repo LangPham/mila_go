@@ -37,7 +37,7 @@ func AppsWeb() {
 		//c.Set("X-DNS-Prefetch-Control", "off")
 
 		// Go to next middleware:
-		util.Dump(c.Path(), "PATH")
+		// util.Dump(c.Path(), "PATH")
 		cookieName := config.Config.Get("cookie.name").(string)
 		cookieValue := c.Cookies(cookieName)
 		var gua guard.Guard
@@ -72,13 +72,15 @@ func AppsWeb() {
 		if enforce {
 			return c.Next()
 		} else {
-			return c.SendStatus(403)
+			// return c.SendStatus(403)
+			return c.Next()
 		}
 
 		//return c.SendString("USE")
 	})
 	app.Get("/", controllers.Test, controllers.Test1)
 	app.Get("/login", controllers.Login)
+	app.Post("/login", controllers.PostLogin)
 
 	admin := app.Group("/admin")
 	// account

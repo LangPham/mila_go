@@ -2,7 +2,9 @@ package controllers
 
 import (
 	. "github.com/LangPham/mila_cast"
+	"github.com/LangPham/mila_go/apps/action"
 	"github.com/LangPham/mila_go/util"
+
 	//"github.com/LangPham/mila/apps/repo"
 	"github.com/LangPham/mila_go/apps_web/views"
 	"github.com/gofiber/fiber/v2"
@@ -13,6 +15,23 @@ func Login(c *fiber.Ctx) error {
 	return views.RenderHTML(c, "session/login", views.M{
 		"exchange": exchange,
 	})
+}
+func PostLogin(c *fiber.Ctx) error {
+	acc := action.CheckAccount(c)
+	util.Dump(acc)
+	return views.RenderHTML(c, "account/show", views.M{
+		"account": acc,
+	})
+
+	// switch ex := action.CreateAccount(c); ex.Valid {
+	// case true:
+	// 	return c.Redirect("/admin/account/" + ex.ResultID)
+	// default:
+	// 	return views.RenderHTML(c, "account/new", views.M{
+	// 		"exchange": ex,
+	// 	})
+	// }
+	// return nil
 }
 func Test(c *fiber.Ctx) error {
 	//return c.SendString("root")

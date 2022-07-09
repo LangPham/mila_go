@@ -35,3 +35,18 @@ func configJoin(m map[string]interface{}) string {
 	}
 	return str.String()
 }
+func GetRepo(key string) (string, string)  {
+	a := Config.Get(key)
+
+	// util.Dump(a.(map[string]interface{}))
+	// driver := a.(map[string]interface{})["driver"].(string) 
+	driver := "postgres" 
+	// "postgres://postgres:postgres@localhost:5432/example?sslmode=disable"
+	user := a.(map[string]interface{})["user"].(string) 
+	pass := a.(map[string]interface{})["password"].(string) 
+	host := a.(map[string]interface{})["host"].(string) 
+	port := a.(map[string]interface{})["port"].(string)
+	db := a.(map[string]interface{})["dbname"].(string) 
+	config := driver + "://" + user + ":" + pass + "@" + host + ":" + port + "/" + db
+	return driver, config
+}

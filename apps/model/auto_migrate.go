@@ -5,5 +5,8 @@ import (
 )
 
 func init() {
-	_ = Repo.AutoMigrate(&Account{}, &Credential{}, &Tag{}, &Article{})
+	// _ = Repo.AutoMigrate(&Account{}, &Credential{}, &Tag{}, &Article{})
+	_ = Repo.AutoMigrate()
 }
+
+
